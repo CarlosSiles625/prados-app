@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import { UserType } from "../../../../types/user";
+import { useRouter } from "next/navigation";
 
 // Esquema para validar solo las contraseñas
 const passwordSchema = z
@@ -41,6 +42,7 @@ type Props = {
 };
 
 export function UserEditPage({ user }: Props) {
+  const router = useRouter();
   // Formulario para los datos generales (sin esquema)
   const formData = useForm({
     defaultValues: {
@@ -100,6 +102,24 @@ export function UserEditPage({ user }: Props) {
     toast.success("Contraseña actualizada exitosamente");
   }
 
+  async function onDeleteUser(e: React.FormEvent) {
+    e.preventDefault();
+    const resp = await fetch("/api/delete-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: user.id }),
+    });
+    const json = await resp.json();
+    if (!json.ok) {
+      toast.error("Error al eliminar el usuario");
+      return;
+    }
+    toast.success("Usuario eliminado exitosamente");
+    router.push("/dashboard/users");
+  }
+
   return (
     <Card className="w-full max-w-xl mx-auto">
       <CardHeader>
@@ -108,7 +128,7 @@ export function UserEditPage({ user }: Props) {
           Actualiza los datos personales y la contraseña del usuario aquí.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-8">
         {/* Formulario para datos generales */}
         <Form {...formData}>
           <form
@@ -205,6 +225,11 @@ export function UserEditPage({ user }: Props) {
             <Button type="submit">Actualizar Contraseña</Button>
           </form>
         </Form>
+        <form onSubmit={onDeleteUser}>
+          <Button type="submit" variant="destructive">
+            Eliminar Usuario
+          </Button>
+        </form>
       </CardContent>
     </Card>
   );
