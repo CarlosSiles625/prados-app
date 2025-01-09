@@ -5,6 +5,13 @@ import { UsersTable } from "./table/users-table";
 
 export async function Users() {
   const data = await prisma.user.findMany({
+    where: {
+      role: {
+        name: {
+          not: "ADMIN",
+        },
+      },
+    },
     select: {
       id: true,
       cedula: true,
