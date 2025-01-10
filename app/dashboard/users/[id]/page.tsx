@@ -2,7 +2,11 @@ import prisma from "@/lib/db";
 import { UserEditPage } from "./edit-user";
 import { UserType } from "../../../../types/user";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params; //next js 15
   const user = await prisma.user.findUnique({
     where: {
