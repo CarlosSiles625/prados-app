@@ -43,7 +43,6 @@ export async function setSession(user: UserType): Promise<boolean> {
     const cookieOptions = {
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 días
       httpOnly: true,
-      secure: true, // Asegúrate de que las cookies solo se envíen a través de HTTPS
       sameSite: "strict" as const, // Prevenir ataques CSRF
     };
 
@@ -95,7 +94,6 @@ export async function updateSession(request: NextRequest) {
         value: refreshedToken,
         httpOnly: true,
         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 días
-        secure: true,
         sameSite: "strict" as const,
       });
 
