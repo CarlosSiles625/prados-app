@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  created_at DateTime @default(now()) @db.Timestamp(6)
-  email      String?  @unique
-  cedula     Int      @unique
+  id         String      @id @default(cuid())
+  created_at DateTime    @default(now()) @db.Timestamp(6)
+  email      String?     @unique
+  cedula     Int         @unique
   name       String
   password   String
   roleId     Int
-  role       Role     @relation(fields: [roleId], references: [id])
+  role       Role        @relation(fields: [roleId], references: [id])
+  Intern     Intern[]
+  Historial  Historial[]
 }
 
 model Role {
@@ -24,4 +26,43 @@ model Role {
   name         String   @unique
   display_name String   @default("Usuario General")
   users        User[]
+}
+
+model Intern {
+  id               String      @id @default(cuid())
+  created_at       DateTime    @default(now()) @db.Timestamp(6)
+  name             String
+  lastname         String
+  birthdate        DateTime
+  born_place       Json
+  isRural          Boolean
+  cedula           Int         @unique
+  phone            String?
+  references       Json[]
+  marital_status   String?
+  direction        Json?
+  adiccions        Json[]
+  education        Json?
+  profession       String?
+  ocupation        String?
+  talents          String[]
+  guarantor_name   String?
+  user_id          String
+  user             User        @relation(fields: [user_id], references: [id])
+  interned_at      DateTime    @db.Timestamp(6)
+  out_at           DateTime?   @db.Timestamp(6)
+  status           String      @default("Activo")
+  finished_program Boolean?    @default(false)
+  out_properties   Json?
+  Historial        Historial[]
+}
+
+model Historial {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  intern_id  String
+  intern     Intern   @relation(fields: [intern_id], references: [id])
+  notes      String
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
 }

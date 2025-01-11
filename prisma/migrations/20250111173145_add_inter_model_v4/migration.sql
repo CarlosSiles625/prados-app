@@ -1,0 +1,10 @@
+-- AlterTable
+ALTER TABLE "Intern" ALTER COLUMN "phone" DROP NOT NULL,
+ALTER COLUMN "marital_status" DROP NOT NULL,
+ALTER COLUMN "direction" DROP NOT NULL,
+ALTER COLUMN "profession" DROP NOT NULL,
+ALTER COLUMN "ocupation" DROP NOT NULL,
+ALTER COLUMN "guarantor_name" DROP NOT NULL,
+ALTER COLUMN "finished_program" DROP NOT NULL,
+ALTER COLUMN "out_properties" DROP NOT NULL,
+ALTER COLUMN "education" DROP NOT NULL;

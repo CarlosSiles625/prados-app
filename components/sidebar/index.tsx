@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search } from "lucide-react";
+import { Calendar, Home, Inbox, Search, UserPlus } from "lucide-react";
 
 import {
   Sidebar,
@@ -26,6 +26,11 @@ const items = [
     title: "Usuarios",
     url: "/dashboard/users",
     icon: Inbox,
+  },
+  {
+    title: "Registrar interno",
+    url: "/dashboard/interns/new",
+    icon: UserPlus,
   },
   {
     title: "Internos",
