@@ -30,3 +30,16 @@ export interface BornPlace {
   departamento: string;
   ciudad: string;
 }
+
+export type InternsType = {
+  id: string;
+  interned_at: string;
+  name: string;
+  cedula: string;
+  birthdate: string;
+  born_place: BornPlace;
+  user: {
+    name: string;
+  };
+  status: "Activo" | "Alta" | "Baja";
+};

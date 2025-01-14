@@ -2,7 +2,6 @@ import { z } from "zod";
 
 export const internSchema = z.object({
   name: z.string().nonempty("El nombre es requerido"),
-  lastname: z.string().nonempty("El apellido es requerido"),
   birthdate: z.string().nonempty("La fecha de nacimiento es requerida"),
   born_place: z.string().nonempty("El lugar de nacimiento es requerido"),
   cedula: z.string().nonempty("La cédula es requerida"),

@@ -32,7 +32,6 @@ model Intern {
   id               String      @id @default(cuid())
   created_at       DateTime    @default(now()) @db.Timestamp(6)
   name             String
-  lastname         String
   birthdate        DateTime
   born_place       Json
   isRural          Boolean
@@ -47,6 +46,7 @@ model Intern {
   ocupation        String?
   talents          String[]
   guarantor_name   String?
+  image            String?
   user_id          String
   user             User        @relation(fields: [user_id], references: [id])
   interned_at      DateTime    @db.Timestamp(6)

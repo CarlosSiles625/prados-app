@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17.2-alpine
+    container_name: postgres_prados
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: prados2025
+      POSTGRES_DB: prados_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

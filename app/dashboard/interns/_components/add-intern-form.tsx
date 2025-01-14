@@ -40,7 +40,6 @@ export function AddInterForm() {
   const form = useForm<InternSchema>({
     defaultValues: {
       name: "",
-      lastname: "",
       birthdate: "",
       born_place: "",
       cedula: "",
@@ -79,7 +78,6 @@ export function AddInterForm() {
     };
     const intertData: Prisma.InternCreateInput = {
       name: data.name,
-      lastname: data.lastname,
       phone: data.phone,
       marital_status: data.marital_status,
       ocupation: data.ocupation,
@@ -128,7 +126,7 @@ export function AddInterForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nombre</FormLabel>
+                <FormLabel>Nombre Completo</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -138,12 +136,12 @@ export function AddInterForm() {
           />
           <FormField
             control={form.control}
-            name="lastname"
+            name="cedula"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Apellido</FormLabel>
+                <FormLabel>Cédula</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -190,20 +188,7 @@ export function AddInterForm() {
             )}
           />
         </div>
-        <div className="grid grid-cols-3 gap-2">
-          <FormField
-            control={form.control}
-            name="cedula"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Cédula</FormLabel>
-                <FormControl>
-                  <Input type="text" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="grid grid-cols-2 gap-2">
           <FormField
             control={form.control}
             name="phone"
