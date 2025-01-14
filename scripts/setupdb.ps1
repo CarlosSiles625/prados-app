@@ -11,6 +11,7 @@ $pgHbaConfPath = "C:\Program Files\PostgreSQL\17\data\pg_hba.conf" # Cambia la v
 # Crear el usuario y la base de datos
 Write-Host "Configurando PostgreSQL..."
 try {
+    $env:PGPASSWORD = $postgresPassword
     psql -U $postgresUser -c "CREATE USER $dbUser WITH PASSWORD '$dbPassword';"
     psql -U $postgresUser -c "CREATE DATABASE $dbName OWNER $dbUser;"
     psql -U $postgresUser -c "GRANT ALL PRIVILEGES ON DATABASE $dbName TO $dbUser;"
