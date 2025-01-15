@@ -11,7 +11,6 @@ export function LoginForm() {
   const [show, setShow] = useState(false);
   const router = useRouter();
   const [state, formAction, isLoading] = useActionState(loginAction, undefined);
-  console.log(state);
   useEffect(() => {
     if (state === "success") {
       router.push("/dashboard");

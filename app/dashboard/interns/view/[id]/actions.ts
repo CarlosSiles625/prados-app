@@ -3,27 +3,16 @@
 import { updateIntern } from "@/services/interns";
 import { createRecord } from "@/services/record";
 
-export async function dischargeIntern(
-  prevState: string | undefined,
-  formdata: FormData
-) {
+export async function dischargeIntern(formdata: FormData) {
   const id = formdata.get("id") as string;
-
-  const { ok, message } = await updateIntern(id, {
+  return await updateIntern(id, {
     status: "Alta",
     out_at: new Date().toISOString(),
     finished_program: true,
   });
-  if (!ok) {
-    return message;
-  }
-  return "success";
 }
 
-export async function downIntern(
-  prevState: string | undefined,
-  formdata: FormData
-) {
+export async function downIntern(formdata: FormData) {
   const id = formdata.get("id") as string;
   const reason = formdata.get("reason") as string;
   const observations = formdata.get("observations") as string;
@@ -32,16 +21,12 @@ export async function downIntern(
     observations,
   };
 
-  const { ok, message } = await updateIntern(id, {
+  return await updateIntern(id, {
     status: "Baja",
     out_at: new Date().toISOString(),
     finished_program: false,
     out_properties: outProperties,
   });
-  if (!ok) {
-    return message;
-  }
-  return "success";
 }
 
 export async function addRecord(formData: FormData) {

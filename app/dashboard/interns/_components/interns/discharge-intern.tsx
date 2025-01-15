@@ -9,27 +9,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import { dischargeIntern } from "../../view/[id]/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export function DischargeIntern({ id }: { id: string }) {
-  const [state, action] = useActionState(dischargeIntern, undefined);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!state) return;
-    if (state === "success") {
-      toast.success("Interno dado de alta con éxito");
-      router.push(`/dashboard/interns/view/${id}`);
-      setOpen(false);
-    } else {
-      toast.error("Ocurrió un error al dar de alta al interno");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formdata = new FormData(e.currentTarget);
+    const { ok, message } = await dischargeIntern(formdata);
+    if (!ok) {
+      toast.error(message);
+      return;
     }
-  }, [state, router, id]);
-
+    toast.success(message);
+    router.refresh();
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -50,9 +49,9 @@ export function DischargeIntern({ id }: { id: string }) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <form>
+          <form onSubmit={handleSubmit}>
             <input type="hidden" name="id" value={id} />
-            <Button formAction={action}>Aceptar</Button>
+            <Button type="submit">Aceptar</Button>
           </form>
         </DialogFooter>
       </DialogContent>

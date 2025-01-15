@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { downIntern } from "../view/[id]/actions";
 import { Label } from "@/components/ui/label";
@@ -18,21 +18,20 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export function DownIntern({ id }: { id: string }) {
-  const [state, action] = useActionState(downIntern, undefined);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!state) return;
-    if (state === "success") {
-      toast.success("Interno dado de baja");
-      router.push(`/dashboard/interns/view/${id}`);
-      setOpen(false);
-    } else {
-      toast.error("Ocurrió un error al dar de Baja al interno");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formdata = new FormData(e.currentTarget);
+    const { ok, message } = await downIntern(formdata);
+    if (!ok) {
+      toast.error(message);
+      return;
     }
-  }, [state, router, id]);
-
+    toast.success(message);
+    router.refresh();
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -48,7 +47,7 @@ export function DownIntern({ id }: { id: string }) {
             ¿Esta seguro de dar de baja la interno?
           </DialogDescription>
         </DialogHeader>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <input type="hidden" name="id" value={id} />
           <Label>
             Motivos de la salida
@@ -58,7 +57,7 @@ export function DownIntern({ id }: { id: string }) {
             Observaciones
             <Textarea name="observations" required />
           </Label>
-          <Button formAction={action}>Aceptar</Button>
+          <Button>Aceptar</Button>
         </form>
       </DialogContent>
     </Dialog>

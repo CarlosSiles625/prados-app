@@ -28,9 +28,8 @@ export default async function Page({
   const { id } = await params;
   const { error, intern } = await getInternById(id);
   const { count, error: errorRecord, records } = await getRecordByInternId(id);
-  console.log({ count, errorRecord, records });
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (error || errorRecord) {
+    return <div>Error: {error ?? errorRecord}</div>;
   }
   if (!intern) {
     return <div>Intern not found</div>;
