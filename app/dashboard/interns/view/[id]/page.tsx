@@ -18,6 +18,7 @@ import Link from "next/link";
 import { getRecordByInternId } from "@/services/record";
 import { RecordsTable } from "../../_components/interns/record/record-table";
 import { Historial } from "@/types/record";
+import { DeleteIntern } from "../../_components/delete-intern";
 
 export default async function Page({
   params,
@@ -158,12 +159,15 @@ export default async function Page({
               </p>
             </div>
           )}
-          <Link
-            href={`/dashboard/interns/edit/${id}`}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          >
-            Editar
-          </Link>
+          <div className="space-x-4">
+            <Link
+              href={`/dashboard/interns/edit/${id}`}
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              Editar
+            </Link>
+            <DeleteIntern id={id} />
+          </div>
         </section>
         <div>
           <Profile image={intern.image} />
