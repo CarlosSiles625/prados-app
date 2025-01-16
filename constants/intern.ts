@@ -20,3 +20,34 @@ export const ADICCTIONS = [
   { id: 19, name: "Compras compulsivas" },
   { id: 20, name: "Trabajo (workaholism)" },
 ];
+
+export const ABANDONMENT_REASONS = [
+  {
+    id: 1,
+    name: "Estudios",
+  },
+  {
+    id: 2,
+    name: "Trabajo",
+  },
+  {
+    id: 3,
+    name: "Familiar",
+  },
+  {
+    id: 4,
+    name: "Salud",
+  },
+  {
+    id: 5,
+    name: "Escapó",
+  },
+  {
+    id: 6,
+    name: "Voluntad propia",
+  },
+  {
+    id: 7,
+    name: "Otros",
+  },
+];

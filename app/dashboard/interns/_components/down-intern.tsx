@@ -14,8 +14,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { downIntern } from "../view/[id]/actions";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ABANDONMENT_REASONS } from "@/constants/intern";
 
 export function DownIntern({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
@@ -51,7 +60,21 @@ export function DownIntern({ id }: { id: string }) {
           <input type="hidden" name="id" value={id} />
           <Label>
             Motivos de la salida
-            <Input name="reason" required />
+            <Select name="reason" required>
+              <SelectTrigger className="w-[380px]">
+                <SelectValue placeholder="Selecciona una opción" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Motivos de salida</SelectLabel>
+                  {ABANDONMENT_REASONS.map((reason) => (
+                    <SelectItem key={reason.id} value={reason.name}>
+                      {reason.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </Label>
           <Label>
             Observaciones
