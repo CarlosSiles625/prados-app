@@ -47,6 +47,7 @@ model Intern {
   talents          String[]
   guarantor_name   String?
   image            String?
+  gender           String?     @default("M")
   user_id          String
   user             User        @relation(fields: [user_id], references: [id])
   interned_at      DateTime    @db.Timestamp(6)

@@ -62,6 +62,7 @@ export function AddInterForm() {
 
   const [isRural, setIsRural] = useState(false);
   const [adicctions, setAdictions] = useState<Adicction[]>([]);
+  const [isM, setIsM] = useState(true);
 
   const onSubmit = async (data: InternSchema) => {
     if (!session) return;
@@ -93,6 +94,7 @@ export function AddInterForm() {
       direction: direction as any,
       references: references as any,
       education: education as any,
+      gender: isM ? "M" : "F",
       adiccions: adicctions as any,
       interned_at: new Date().toISOString(),
       talents: data.talents.split(","),
@@ -120,7 +122,7 @@ export function AddInterForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col space-y-2 mt-2 p-4 border border-gray-200 rounded shadow-md"
       >
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <FormField
             control={form.control}
             name="name"
@@ -147,6 +149,33 @@ export function AddInterForm() {
               </FormItem>
             )}
           />
+          <div>
+            <Label>Sexo</Label>
+            <div className="flex justify-between p-4">
+              <div className="flex items-center justify-center gap-2">
+                <Input
+                  type="radio"
+                  name="sexo"
+                  value="M"
+                  checked={isM}
+                  className="w-4 h-4"
+                  onChange={() => setIsM(!isM)}
+                />
+                <Label htmlFor="Masculino">Masculino</Label>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <Input
+                  type="radio"
+                  name="sexo"
+                  value="F"
+                  checked={!isM}
+                  className="w-4 h-4"
+                  onChange={() => setIsM(!isM)}
+                />
+                <Label htmlFor="Femenino">Femenino</Label>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <FormField
