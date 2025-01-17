@@ -34,6 +34,7 @@ import { formatReferences } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { useSession } from "@/context/session-context";
 import { toast } from "sonner";
+import { DEPARTAMENTS } from "@/constants/intern";
 
 export function AddInterForm() {
   const session = useSession();
@@ -62,6 +63,7 @@ export function AddInterForm() {
 
   const [isRural, setIsRural] = useState(false);
   const [adicctions, setAdictions] = useState<Adicction[]>([]);
+  const [departament, setDepartament] = useState("Chuquisaca");
   const [isM, setIsM] = useState(true);
 
   const onSubmit = async (data: InternSchema) => {
@@ -88,8 +90,8 @@ export function AddInterForm() {
       isRural,
       birthdate: new Date(data.birthdate).toISOString(),
       born_place: {
-        departamento: data.born_place.split(",")[0],
-        ciudad: data.born_place.split(",")[1],
+        departamento: departament,
+        ciudad: data.born_place,
       },
       direction: direction as any,
       references: references as any,
@@ -177,7 +179,7 @@ export function AddInterForm() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2 ">
           <FormField
             control={form.control}
             name="birthdate"
@@ -191,31 +193,49 @@ export function AddInterForm() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="born_place"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Lugar de Nacimiento</FormLabel>
-                <FormControl>
-                  <div>
-                    <Input {...field} />
-                    <div className="flex items-center gap-2">
-                      <Label htmlFor="isRural">Es rural?</Label>
-                      <Input
-                        type="checkbox"
-                        name="isRural"
-                        className="h-4 w-4"
-                        onChange={() => setIsRural(!isRural)}
-                      />
-                    </div>
-                  </div>
-                </FormControl>
-                <FormDescription>Departamento,Localidad </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="space-y-2">
+            <Label>Lugar de Nacimiento</Label>
+            <Select
+              onValueChange={(v) => setDepartament(v)}
+              defaultValue={departament}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccione una opción" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Departamentos</SelectLabel>
+                  {DEPARTAMENTS.map((dep) => (
+                    <SelectItem key={dep.id} value={dep.name}>
+                      {dep.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <FormField
+              control={form.control}
+              name="born_place"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Localidad</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Label htmlFor="isRural">Es rural?</Label>
+            <Input
+              type="checkbox"
+              name="isRural"
+              className="h-4 w-4"
+              onChange={() => setIsRural(!isRural)}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <FormField

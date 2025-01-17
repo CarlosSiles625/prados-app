@@ -51,3 +51,15 @@ export const ABANDONMENT_REASONS = [
     name: "Otros",
   },
 ];
+
+export const DEPARTAMENTS = [
+  { id: 1, name: "La Paz" },
+  { id: 2, name: "Cochabamba" },
+  { id: 3, name: "Santa Cruz" },
+  { id: 4, name: "Oruro" },
+  { id: 5, name: "Potosí" },
+  { id: 6, name: "Tarija" },
+  { id: 7, name: "Chuquisaca" },
+  { id: 8, name: "Beni" },
+  { id: 9, name: "Pando" },
+];
