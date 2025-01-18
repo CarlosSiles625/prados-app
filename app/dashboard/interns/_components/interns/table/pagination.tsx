@@ -6,7 +6,7 @@ export function Pagination({ count }: { count: number }) {
   const [page, setPage] = useQueryState(
     "page",
     parseAsInteger.withDefault(1).withOptions({
-      shallow: true,
+      shallow: false,
     })
   );
   const totalPages = Math.ceil(count / 10);
