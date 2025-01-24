@@ -1,6 +1,6 @@
-export const FAKE_INTERNS = [
+import { PrismaClient } from "@prisma/client";
+const FAKE_INTERNS = [
   {
-    id: "clx1y2z3a45b6",
     created_at: "2025-01-01T12:00:00.000Z",
     name: "Carlos Pérez",
     birthdate: "1990-07-15T00:00:00.000Z",
@@ -40,7 +40,7 @@ export const FAKE_INTERNS = [
     talents: ["Carpintería", "Mecánica"],
     guarantor_name: "Rosa Martínez",
     image: null,
-    user_id: "user123",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2025-01-05T10:00:00.000Z",
     out_at: null,
     status: "Activo",
@@ -49,7 +49,6 @@ export const FAKE_INTERNS = [
     gender: "M",
   },
   {
-    id: "clx1y2z3a45b7",
     created_at: "2025-01-02T14:30:00.000Z",
     name: "María López",
     birthdate: "1985-03-22T00:00:00.000Z",
@@ -58,7 +57,7 @@ export const FAKE_INTERNS = [
       ciudad: "Jaén",
     },
     isRural: true,
-    cedula: 87654321,
+    cedula: 872654321,
     phone: "555-654-3210",
     references: [
       {
@@ -94,7 +93,7 @@ export const FAKE_INTERNS = [
     talents: ["Pintura", "Cocina"],
     guarantor_name: "José Fernández",
     image: null,
-    user_id: "user124",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2025-01-10T09:30:00.000Z",
     out_at: "2025-01-20T17:00:00.000Z",
     status: "Inactivo",
@@ -107,7 +106,6 @@ export const FAKE_INTERNS = [
     gender: "F",
   },
   {
-    id: "clx2a3b4c56d7",
     created_at: "2024-12-01T08:45:00.000Z",
     name: "Pedro Alvarado",
     birthdate: "1975-11-20T00:00:00.000Z",
@@ -116,7 +114,7 @@ export const FAKE_INTERNS = [
       ciudad: "Urubamba",
     },
     isRural: true,
-    cedula: 54321678,
+    cedula: 5434422,
     phone: "555-998-7766",
     references: [
       {
@@ -151,7 +149,7 @@ export const FAKE_INTERNS = [
     talents: ["Cuidado de animales", "Carpintería"],
     guarantor_name: "Miguel Alvarado",
     image: null,
-    user_id: "user125",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2024-12-15T10:00:00.000Z",
     out_at: null,
     status: "Activo",
@@ -160,7 +158,6 @@ export const FAKE_INTERNS = [
     gender: "M",
   },
   {
-    id: "clx2a3b4c56d8",
     created_at: "2023-06-15T11:30:00.000Z",
     name: "Ana Rojas",
     birthdate: "1995-05-12T00:00:00.000Z",
@@ -169,7 +166,7 @@ export const FAKE_INTERNS = [
       ciudad: "Santa Cruz",
     },
     isRural: false,
-    cedula: 98765432,
+    cedula: 9765432,
     phone: "555-101-1122",
     references: [
       {
@@ -200,7 +197,7 @@ export const FAKE_INTERNS = [
     talents: ["Dibujo digital", "Programación"],
     guarantor_name: null,
     image: null,
-    user_id: "user126",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2023-06-20T09:00:00.000Z",
     out_at: "2023-08-01T14:00:00.000Z",
     status: "Inactivo",
@@ -212,7 +209,6 @@ export const FAKE_INTERNS = [
     gender: "F",
   },
   {
-    id: "clx2a3b4c56d9",
     created_at: "2024-03-10T13:15:00.000Z",
     name: "Jorge Hidalgo",
     birthdate: "1982-08-10T00:00:00.000Z",
@@ -221,7 +217,7 @@ export const FAKE_INTERNS = [
       ciudad: "Juliaca",
     },
     isRural: true,
-    cedula: 56473829,
+    cedula: 6473829,
     phone: "555-555-1234",
     references: [
       {
@@ -247,7 +243,7 @@ export const FAKE_INTERNS = [
     talents: ["Reparación de vehículos", "Oratoria"],
     guarantor_name: "Roberto Hidalgo",
     image: null,
-    user_id: "user127",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2024-03-15T08:00:00.000Z",
     out_at: null,
     status: "Activo",
@@ -265,7 +261,7 @@ export const FAKE_INTERNS = [
       ciudad: "Tarija",
     },
     isRural: false,
-    cedula: 34567890,
+    cedula: 3456789,
     phone: "555-789-4561",
     references: [
       {
@@ -296,7 +292,7 @@ export const FAKE_INTERNS = [
     talents: ["Canto", "Danza"],
     guarantor_name: "María Fernández",
     image: null,
-    user_id: "user128",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2022-11-25T12:00:00.000Z",
     out_at: "2023-01-10T16:00:00.000Z",
     status: "Inactivo",
@@ -308,7 +304,6 @@ export const FAKE_INTERNS = [
     gender: "F",
   },
   {
-    id: "clx2a3b4c56e1",
     created_at: "2023-07-20T10:15:00.000Z",
     name: "Luis Pérez",
     birthdate: "1990-03-18T00:00:00.000Z",
@@ -317,7 +312,7 @@ export const FAKE_INTERNS = [
       ciudad: "El Alto",
     },
     isRural: true,
-    cedula: 12345678,
+    cedula: 12745678,
     phone: "555-303-3344",
     references: [
       {
@@ -348,7 +343,7 @@ export const FAKE_INTERNS = [
     talents: ["Tallado en madera", "Diseño artesanal"],
     guarantor_name: null,
     image: null,
-    user_id: "user127",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2023-08-01T09:30:00.000Z",
     out_at: "2023-09-15T17:00:00.000Z",
     status: "Alta",
@@ -360,7 +355,6 @@ export const FAKE_INTERNS = [
     gender: "M",
   },
   {
-    id: "clx2a3b4c56e2",
     created_at: "2023-05-10T14:25:00.000Z",
     name: "Juana Flores",
     birthdate: "1988-09-25T00:00:00.000Z",
@@ -369,7 +363,7 @@ export const FAKE_INTERNS = [
       ciudad: "Sacaba",
     },
     isRural: false,
-    cedula: 87654321,
+    cedula: 77654321,
     phone: "555-505-5566",
     references: [
       {
@@ -400,7 +394,7 @@ export const FAKE_INTERNS = [
     talents: ["Canto", "Organización comunitaria"],
     guarantor_name: null,
     image: null,
-    user_id: "user128",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2023-06-01T10:45:00.000Z",
     out_at: null,
     status: "Activo",
@@ -418,7 +412,7 @@ export const FAKE_INTERNS = [
       ciudad: "Yacuiba",
     },
     isRural: true,
-    cedula: 65432198,
+    cedula: 6543448,
     phone: "555-707-7788",
     references: [
       {
@@ -449,7 +443,7 @@ export const FAKE_INTERNS = [
     talents: ["Cuidado de cultivos", "Mantenimiento de maquinaria"],
     guarantor_name: "Carlos Mendoza",
     image: null,
-    user_id: "user129",
+    user_id: "cm5vt8cve0000bumcoympom69",
     interned_at: "2023-05-01T08:15:00.000Z",
     out_at: "2023-06-30T16:45:00.000Z",
     status: "Baja",
@@ -462,19 +456,20 @@ export const FAKE_INTERNS = [
   },
 ];
 
-export const FAKE_HISTORY = [
-  {
-    id: 1,
-    created_at: "2025-01-06T10:15:00.000Z",
-    intern_id: "clx1y2z3a45b6",
-    notes: "El paciente ha mostrado progreso en las sesiones iniciales.",
-    user_id: "user123",
-  },
-  {
-    id: 2,
-    created_at: "2025-01-12T15:45:00.000Z",
-    intern_id: "clx1y2z3a45b7",
-    notes: "El paciente ha participado activamente en talleres grupales.",
-    user_id: "user124",
-  },
-];
+async function main() {
+  try {
+    console.log("Creating fake interns...");
+    const prisma = new PrismaClient();
+    const resp = await prisma.intern.createMany({
+      data: FAKE_INTERNS,
+    });
+    console.log("Fake interns created:", resp);
+  } catch (error) {
+    console.log("Error creating fake interns:", error);
+  }
+}
+
+main().finally(async () => {
+  const prisma = new PrismaClient();
+  await prisma.$disconnect();
+});

@@ -9,16 +9,9 @@ export const ADICCTIONS = [
   { id: 8, name: "Benzodiazepinas" },
   { id: 9, name: "Anfetaminas" },
   { id: 10, name: "Opioides recetados" },
-  { id: 11, name: "Videojuegos" },
   { id: 12, name: "Apuestas (ludopatía)" },
   { id: 13, name: "Internet" },
-  { id: 14, name: "Redes sociales" },
-  { id: 15, name: "Pornografía" },
-  { id: 16, name: "Comida" },
-  { id: 17, name: "Café o bebidas con cafeína" },
-  { id: 18, name: "Ejercicio compulsivo" },
-  { id: 19, name: "Compras compulsivas" },
-  { id: 20, name: "Trabajo (workaholism)" },
+  { id: 20, name: "Otros" },
 ];
 
 export const ABANDONMENT_REASONS = [

@@ -35,7 +35,7 @@ model Intern {
   birthdate        DateTime
   born_place       Json
   isRural          Boolean
-  cedula           Int         @unique
+  cedula           BigInt      @unique
   phone            String?
   references       Json[]
   marital_status   String?
