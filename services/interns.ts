@@ -79,6 +79,9 @@ export async function getInterns({
             },
           },
         },
+        orderBy: {
+          created_at: "desc",
+        },
         skip,
         take: limit,
       }),

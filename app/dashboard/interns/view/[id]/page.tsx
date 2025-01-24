@@ -112,6 +112,10 @@ export default async function Page({
             <span className="font-bold">Internado por: </span>
             {user.name}
           </p>
+          <p>
+            <span className="font-bold">Fecha de Internación </span>
+            {format(intern.interned_at, "medium", "es")}
+          </p>
           <div className="flex gap-4 items-center">
             <div className="mt-1 mb-1">
               <p className="font-semibold underline">Referencias</p>

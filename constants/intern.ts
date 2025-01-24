@@ -63,3 +63,133 @@ export const DEPARTAMENTS = [
   { id: 8, name: "Beni" },
   { id: 9, name: "Pando" },
 ];
+
+export const PROFESSIONS = [
+  {
+    id: 1,
+    name: "Abogado/a",
+  },
+  {
+    id: 2,
+    name: "Médico",
+  },
+  {
+    id: 3,
+    name: "Odontólogo/a",
+  },
+  {
+    id: 4,
+    name: "Economista",
+  },
+  {
+    id: 5,
+    name: "Ingeniero/a",
+  },
+  {
+    id: 6,
+    name: "Arquitecto/a",
+  },
+  {
+    id: 7,
+    name: "Contador/a",
+  },
+  {
+    id: 8,
+    name: "Docente",
+  },
+  {
+    id: 9,
+    name: "Secretaria/o",
+  },
+  {
+    id: 10,
+    name: "Profesional Técnico/a",
+  },
+  {
+    id: 11,
+    name: "Policia",
+  },
+  {
+    id: 12,
+    name: "Sin profesión",
+  },
+  {
+    id: 13,
+    name: "Otros",
+  },
+];
+
+export const OCCUPATIONS = [
+  {
+    id: 1,
+    name: "Electricista",
+  },
+  {
+    id: 2,
+    name: "Plomero",
+  },
+  {
+    id: 3,
+    name: "Comerciante",
+  },
+  {
+    id: 4,
+    name: "Empleado/a",
+  },
+  {
+    id: 5,
+    name: "Obrero/a",
+  },
+  {
+    id: 6,
+    name: "Estudiante",
+  },
+  {
+    id: 7,
+    name: "Desempleado/a",
+  },
+  {
+    id: 8,
+    name: "Jubilado/a",
+  },
+  {
+    id: 9,
+    name: "Albañil",
+  },
+  {
+    id: 10,
+    name: "Minero/a",
+  },
+  {
+    id: 11,
+    name: "Chofer",
+  },
+  {
+    id: 12,
+    name: "Agricultor/a",
+  },
+  {
+    id: 13,
+    name: "Jardinero/a",
+  },
+  {
+    id: 15,
+    name: "Carpintero/a",
+  },
+  {
+    id: 16,
+    name: "Mecánico/a",
+  },
+  {
+    id: 17,
+    name: "Tareas domésticas",
+  },
+  {
+    id: 18,
+    name: "Sin ocupación",
+  },
+  {
+    id: 19,
+    name: "Otros",
+  },
+];

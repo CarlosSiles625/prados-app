@@ -34,7 +34,7 @@ import { formatReferences } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { useSession } from "@/context/session-context";
 import { toast } from "sonner";
-import { DEPARTAMENTS } from "@/constants/intern";
+import { DEPARTAMENTS, OCCUPATIONS, PROFESSIONS } from "@/constants/intern";
 
 export function AddInterForm() {
   const session = useSession();
@@ -43,6 +43,7 @@ export function AddInterForm() {
       name: "",
       birthdate: "",
       born_place: "",
+      interned_at: "",
       cedula: "",
       phone: "",
       marital_status: "",
@@ -98,7 +99,9 @@ export function AddInterForm() {
       education: education as any,
       gender: isM ? "M" : "F",
       adiccions: adicctions as any,
-      interned_at: new Date().toISOString(),
+      interned_at: data.interned_at
+        ? new Date(data.interned_at).toISOString()
+        : new Date().toISOString(),
       talents: data.talents.split(","),
       user: { connect: { id: session.user.id } },
     };
@@ -121,8 +124,9 @@ export function AddInterForm() {
   return (
     <Form {...form}>
       <form
+        autoComplete="off"
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2 mt-2 p-4 border border-gray-200 rounded shadow-md"
+        className="w-full max-w-screen-lg flex flex-col space-y-2 mt-2 p-4 border border-gray-200 rounded shadow-md"
       >
         <div className="grid grid-cols-3 gap-2">
           <FormField
@@ -237,7 +241,7 @@ export function AddInterForm() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <FormField
             control={form.control}
             name="phone"
@@ -274,6 +278,19 @@ export function AddInterForm() {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="interned_at"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fecha de Internación</FormLabel>
+                <FormControl>
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -406,7 +423,24 @@ export function AddInterForm() {
               <FormItem>
                 <FormLabel>Profesión</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccione una opción" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Profesiones</SelectLabel>
+                        {PROFESSIONS.map((prof) => (
+                          <SelectItem key={prof.id} value={prof.name}>
+                            {prof.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -419,7 +453,24 @@ export function AddInterForm() {
               <FormItem>
                 <FormLabel>Ocupación</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccione una opción" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Ocupaciones</SelectLabel>
+                        {OCCUPATIONS.map((occ) => (
+                          <SelectItem key={occ.id} value={occ.name}>
+                            {occ.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
