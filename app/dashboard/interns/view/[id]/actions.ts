@@ -5,15 +5,17 @@ import { createRecord } from "@/services/record";
 
 export async function dischargeIntern(formdata: FormData) {
   const id = formdata.get("id") as string;
+  const outAt = formdata.get("out_at") as string | undefined;
   return await updateIntern(id, {
     status: "Alta",
-    out_at: new Date().toISOString(),
+    out_at: outAt ? new Date(outAt).toISOString() : new Date().toISOString(),
     finished_program: true,
   });
 }
 
 export async function downIntern(formdata: FormData) {
   const id = formdata.get("id") as string;
+  const outAt = formdata.get("out_at") as string | undefined;
   const reason = formdata.get("reason") as string;
   const observations = formdata.get("observations") as string;
   const outProperties = {
@@ -23,7 +25,7 @@ export async function downIntern(formdata: FormData) {
 
   return await updateIntern(id, {
     status: "Baja",
-    out_at: new Date().toISOString(),
+    out_at: outAt ? new Date(outAt).toISOString() : new Date().toISOString(),
     finished_program: false,
     out_properties: outProperties,
   });

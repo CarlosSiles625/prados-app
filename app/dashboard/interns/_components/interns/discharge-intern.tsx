@@ -13,6 +13,8 @@ import { useState } from "react";
 import { dischargeIntern } from "../../view/[id]/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export function DischargeIntern({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
@@ -49,8 +51,11 @@ export function DischargeIntern({ id }: { id: string }) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-2 w-full">
             <input type="hidden" name="id" value={id} />
+            <Label htmlFor="out_at">Fecha:</Label>
+            <Input type="date" id="out_at" name="out_at" className="max-w-xs" />
+
             <Button type="submit">Aceptar</Button>
           </form>
         </DialogFooter>

@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ABANDONMENT_REASONS } from "@/constants/intern";
+import { Input } from "@/components/ui/input";
 
 export function DownIntern({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
@@ -80,6 +81,11 @@ export function DownIntern({ id }: { id: string }) {
             Observaciones
             <Textarea name="observations" required />
           </Label>
+          <Label htmlFor="out_at">
+            Fecha:
+            <Input type="date" id="out_at" name="out_at" />
+          </Label>
+
           <Button>Aceptar</Button>
         </form>
       </DialogContent>
