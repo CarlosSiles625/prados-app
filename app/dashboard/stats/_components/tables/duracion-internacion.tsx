@@ -7,35 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Gender, getInternmentDurationStats, Year } from "@/services/stats";
 
-const EXAMPLE_DATA = [
-  {
-    name: "0-3 meses",
-    total: 10,
-  },
-  {
-    name: "4-8 meses",
-    total: 20,
-  },
-  {
-    name: "8-12 meses",
-    total: 30,
-  },
-  {
-    name: "1-2 años",
-    total: 40,
-  },
-  {
-    name: "2-4 años",
-    total: 40,
-  },
-  {
-    name: "5+ años",
-    total: 40,
-  },
-];
-
-export function DuracionInternacion() {
+export async function DuracionInternacion({
+  gender,
+  year,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getInternmentDurationStats(year, gender);
+  if (stats.error) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-md">
       <h2 className="text-lg font-semibold">Duración de internación</h2>
@@ -51,16 +33,16 @@ export function DuracionInternacion() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {EXAMPLE_DATA.map((data) => (
-            <TableRow key={data.name}>
+          {stats.data.map((data) => (
+            <TableRow key={data.intervalo}>
               <TableHead
                 scope="row"
                 className="border border-gray-300 text-center   "
               >
-                {data.name}
+                {data.intervalo}
               </TableHead>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.total}
+                {data.cantidad}
               </TableCell>
             </TableRow>
           ))}
@@ -68,7 +50,7 @@ export function DuracionInternacion() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center font-semibold">
-              TOTAL: 100
+              TOTAL: {stats.total}
             </TableCell>
           </TableRow>
         </TableFooter>

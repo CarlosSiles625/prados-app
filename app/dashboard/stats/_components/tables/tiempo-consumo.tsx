@@ -7,27 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Gender, getConsumptionTimeStats, Year } from "@/services/stats";
 
-const EXAMPLE_DATA = [
-  {
-    name: "0-1 año",
-    total: 10,
-  },
-  {
-    name: "2-3 años",
-    total: 20,
-  },
-  {
-    name: "4-7 años",
-    total: 30,
-  },
-  {
-    name: "7+ años",
-    total: 40,
-  },
-];
-
-export function TiempoConsumo() {
+export async function TiempoConsumo({
+  year,
+  gender,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getConsumptionTimeStats(year, gender);
+  if (stats.error) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-md">
       <h2 className="text-lg font-semibold">Tiempo de Consumo</h2>
@@ -43,16 +33,16 @@ export function TiempoConsumo() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {EXAMPLE_DATA.map((data) => (
-            <TableRow key={data.name}>
+          {stats.data.map((data) => (
+            <TableRow key={data.intervalo}>
               <TableHead
                 scope="row"
                 className="border border-gray-300 text-center   "
               >
-                {data.name}
+                {data.intervalo}
               </TableHead>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.total}
+                {data.cantidad}
               </TableCell>
             </TableRow>
           ))}
@@ -60,7 +50,7 @@ export function TiempoConsumo() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center font-semibold">
-              TOTAL: 100
+              TOTAL: {stats.total}
             </TableCell>
           </TableRow>
         </TableFooter>

@@ -1,6 +1,11 @@
 "use client";
-import React from "react";
+
+import { YearSelect } from "./year-select";
 
 export function Filters() {
-  return <div>Filters</div>;
+  return (
+    <>
+      <YearSelect />
+    </>
+  );
 }

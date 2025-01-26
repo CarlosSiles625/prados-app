@@ -7,27 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Gender, getEducationStatistics, Year } from "@/services/stats";
 
-const EXAMPLE_DATA = [
-  {
-    name: "Primaria",
-    total: 10,
-  },
-  {
-    name: "Secundaria",
-    total: 4,
-  },
-  {
-    name: "Universitaria",
-    total: 7,
-  },
-  {
-    name: "Sin estudios",
-    total: 5,
-  },
-];
-
-export function Estudios() {
+export async function Estudios({
+  year,
+  gender,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getEducationStatistics(year, gender);
+  if (stats.error) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-md">
       <h2 className="text-lg font-semibold">Nivel de estudios</h2>
@@ -43,16 +33,16 @@ export function Estudios() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {EXAMPLE_DATA.map((data) => (
-            <TableRow key={data.name}>
+          {stats.data.map((data) => (
+            <TableRow key={data.nivel}>
               <TableHead
                 scope="row"
                 className="border border-gray-300 text-center   "
               >
-                {data.name}
+                {data.nivel}
               </TableHead>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.total}
+                {data.cantidad}
               </TableCell>
             </TableRow>
           ))}
@@ -60,7 +50,7 @@ export function Estudios() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center font-semibold">
-              TOTAL: 100
+              TOTAL: {stats.total}
             </TableCell>
           </TableRow>
         </TableFooter>

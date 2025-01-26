@@ -7,31 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Gender, getAgeDistribution, Year } from "@/services/stats";
 
-const EXAMPLE_DATA = [
-  {
-    name: "0-14 años",
-    total: 10,
-  },
-  {
-    name: "15-29 años",
-    total: 20,
-  },
-  {
-    name: "30-44 años",
-    total: 30,
-  },
-  {
-    name: "45-59 años",
-    total: 40,
-  },
-  {
-    name: "60+ años",
-    total: 100,
-  },
-];
-
-export function DistribucionEdad() {
+export async function DistribucionEdad({
+  gender,
+  year,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getAgeDistribution(year, gender);
+  if (stats.error) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-md">
       <h2 className="text-lg font-semibold">Distribución por edad</h2>
@@ -47,16 +33,16 @@ export function DistribucionEdad() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {EXAMPLE_DATA.map((data) => (
-            <TableRow key={data.name}>
+          {stats.data.map((data) => (
+            <TableRow key={data.intervalo}>
               <TableHead
                 scope="row"
                 className="border border-gray-300 text-center   "
               >
-                {data.name}
+                {data.intervalo}
               </TableHead>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.total}
+                {data.cantidad}
               </TableCell>
             </TableRow>
           ))}
@@ -64,7 +50,7 @@ export function DistribucionEdad() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center font-semibold">
-              TOTAL: 100
+              TOTAL: {stats.total}
             </TableCell>
           </TableRow>
         </TableFooter>

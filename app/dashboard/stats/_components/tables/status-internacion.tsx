@@ -7,46 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-const data = {
-  gestion: 2021,
-  internCount: 10,
-  procedencia: [
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-    { ur: 1, ru: 2 },
-  ],
-  genero: { hombres: 3, mujeres: 7 },
-  estudios: { sinEstudios: 3, primaria: 5, secundaria: 2, universitaria: 6 },
-  ocupacion: { sinOcupacion: 3, profesionales: 5, trabajos: 2, jubilados: 6 },
-  recuperadosAbandonosPendientes: {
-    recuperados: 3,
-    abandonos: {
-      estudios: 5,
-      trabajo: 2,
-      familiar: 6,
-      salud: 3,
-      escapo: 5,
-      voluntario: 2,
-      otros: 6,
-    },
-    pendientes: 6,
-  },
-  edades: {
-    "14-19": 3,
-    "20-30": 5,
-    "31-40": 2,
-    "41-50": 6,
-    "51-60": 3,
-    masDe60: 5,
-  },
-};
-export function StatusInternacion() {
+import { Gender, getAdmissionStatusStats, Year } from "@/services/stats";
+
+export async function StatusInternacion({
+  year,
+  gender,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getAdmissionStatusStats(year, gender);
+  if (stats.error) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-lg">
       <h2 className="text-lg font-semibold">Estatus de internación</h2>
@@ -122,38 +93,38 @@ export function StatusInternacion() {
         <TableBody>
           <TableRow className="text-center">
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.recuperados}
+              {stats.recuperados}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.estudios}
+              {stats.abandonos["Estudios"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.trabajo}
+              {stats.abandonos["Trabajo"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.familiar}
+              {stats.abandonos["Familiar"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.salud}
+              {stats.abandonos["Salud"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.escapo}
+              {stats.abandonos["Escapó"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.voluntario}
+              {stats.abandonos["Voluntad propia"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.abandonos.otros}
+              {stats.abandonos["Otros"]}
             </TableCell>
             <TableCell className="border border-gray-300">
-              {data.recuperadosAbandonosPendientes.pendientes}
+              {stats.pendientes}
             </TableCell>
           </TableRow>
         </TableBody>
         <TableFooter>
           <TableRow>
             <TableCell colSpan={9} className="text-center font-semibold">
-              TOTAL: {data.internCount}
+              TOTAL: {stats.total}
             </TableCell>
           </TableRow>
         </TableFooter>

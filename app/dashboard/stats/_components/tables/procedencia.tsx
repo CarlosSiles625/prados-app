@@ -7,55 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Gender, getLocationStatistics, Year } from "@/services/stats";
 
-const EXAMPLE_DATA = [
-  {
-    departament: "La Paz",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Cochabamba",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Santa Cruz",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Chuquisaca",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Oruro",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Potosi",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Tarija",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Beni",
-    ur: 10,
-    ru: 20,
-  },
-  {
-    departament: "Pando",
-    ur: 10,
-    ru: 20,
-  },
-];
-export function Procedencia() {
+export async function Procedencia({
+  year,
+  gender,
+}: {
+  year: Year;
+  gender: Gender;
+}) {
+  const stats = await getLocationStatistics(year, gender);
+  if (!stats) return <div>Error desconocido</div>;
   return (
     <div className="w-full max-w-screen-md">
       <h2 className="text-lg font-semibold">Procedencia</h2>
@@ -74,19 +36,19 @@ export function Procedencia() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {EXAMPLE_DATA.map((data) => (
-            <TableRow key={data.departament}>
+          {stats.data.map((data) => (
+            <TableRow key={data.departamento}>
               <TableHead
                 scope="row"
                 className="border border-gray-300 text-center   "
               >
-                {data.departament}
+                {data.departamento}
               </TableHead>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.ur}
+                {data.urbano}
               </TableCell>
               <TableCell className="border border-gray-300 text-center  ">
-                {data.ru}
+                {data.rural}
               </TableCell>
             </TableRow>
           ))}
@@ -94,7 +56,7 @@ export function Procedencia() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3} className="text-center font-semibold">
-              TOTAL: 100
+              TOTAL: {stats.total.general}
             </TableCell>
           </TableRow>
         </TableFooter>
