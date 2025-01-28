@@ -10,6 +10,7 @@ import { DuracionInternacion } from "./_components/tables/duracion-internacion";
 import { YearSelect } from "./_components/year-select";
 import { SelectGender } from "./_components/select-gender";
 import { Gender, Year } from "@/services/stats";
+import { PrintReport } from "./_components/print-report";
 
 export default async function Page({
   searchParams,
@@ -28,6 +29,55 @@ export default async function Page({
           <YearSelect />
           <SelectGender />
         </section>
+        <div className="w-full flex justify-center items-center">
+          <PrintReport>
+            <p className="text-center font-semibold text-xl">PRADOS</p>
+            <p className="text-center font-semibold text-xl">
+              Centro de Rehabilitación de Alcoholicos y Drogadictos.
+            </p>
+            <div className="flex gap-4 justify-center items-center">
+              <p className="text-center font-semibold text-md">
+                Reporte de la Gestión{" "}
+                {queryParams.year ? queryParams.year : "Hitórico"}
+              </p>
+              <p className="text-center font-semibold text-md">
+                Género: {queryParams.gender ? queryParams.gender : "Ambos"}
+              </p>
+            </div>
+            <div className="space-y-4">
+              <Profesiones
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <Ocupaciones
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <Estudios gender={queryParams.gender} year={queryParams.year} />
+              <Procedencia
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <Adicciones gender={queryParams.gender} year={queryParams.year} />
+              <TiempoConsumo
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <DistribucionEdad
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <StatusInternacion
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+              <DuracionInternacion
+                gender={queryParams.gender}
+                year={queryParams.year}
+              />
+            </div>
+          </PrintReport>
+        </div>
         <section className="w-full flex gap-4">
           <Procedencia gender={queryParams.gender} year={queryParams.year} />
           <Profesiones gender={queryParams.gender} year={queryParams.year} />
