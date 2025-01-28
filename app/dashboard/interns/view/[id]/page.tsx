@@ -19,6 +19,8 @@ import { getRecordByInternId } from "@/services/record";
 import { RecordsTable } from "../../_components/interns/record/record-table";
 import { Historial } from "@/types/record";
 import { DeleteIntern } from "../../_components/delete-intern";
+import { PrintProfile } from "../../_components/print/profile";
+import { PrintRecord } from "../../_components/print/record";
 
 export default async function Page({
   params,
@@ -185,8 +187,11 @@ export default async function Page({
           <DownIntern id={id} />
         </div>
       )}
-
-      <section className="">
+      <div className="max-w-screen-lg mx-auto space-x-4">
+        <PrintProfile intern={intern} />
+        <PrintRecord intern={intern} records={records} />
+      </div>
+      <section>
         <h2 className="text-center font-semibold text-xl underline">
           Prontuario
         </h2>
