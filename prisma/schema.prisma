@@ -15,7 +15,7 @@ model User {
   name       String
   password   String
   roleId     Int
-  role       Role        @relation(fields: [roleId], references: [id])
+  role       Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
   Intern     Intern[]
   Historial  Historial[]
 }
@@ -49,7 +49,7 @@ model Intern {
   image            String?
   gender           String?     @default("M")
   user_id          String
-  user             User        @relation(fields: [user_id], references: [id])
+  user             User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   interned_at      DateTime    @db.Timestamp(6)
   out_at           DateTime?   @db.Timestamp(6)
   status           String      @default("Activo")
@@ -62,8 +62,8 @@ model Historial {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now()) @db.Timestamp(6)
   intern_id  String
-  intern     Intern   @relation(fields: [intern_id], references: [id])
+  intern     Intern   @relation(fields: [intern_id], references: [id], onDelete: Cascade)
   notes      String
   user_id    String
-  user       User     @relation(fields: [user_id], references: [id])
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }

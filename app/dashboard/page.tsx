@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <div>Dashboard</div>;
+  redirect("/dashboard/interns");
+  return null;
 }

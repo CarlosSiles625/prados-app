@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, UserPlus } from "lucide-react";
+import { Calendar, Inbox, Search, UserPlus } from "lucide-react";
 
 import {
   Sidebar,
@@ -17,11 +17,6 @@ import Link from "next/link";
 
 // Menu items.
 const items = [
-  {
-    title: "Inicio",
-    url: "/dashboard",
-    icon: Home,
-  },
   {
     title: "Usuarios",
     url: "/dashboard/users",
