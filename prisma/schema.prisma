@@ -29,33 +29,37 @@ model Role {
 }
 
 model Intern {
-  id               String      @id @default(cuid())
-  created_at       DateTime    @default(now()) @db.Timestamp(6)
-  name             String
-  birthdate        DateTime
-  born_place       Json
-  isRural          Boolean
-  cedula           BigInt      @unique
-  phone            String?
-  references       Json[]
-  marital_status   String?
-  direction        Json?
-  adiccions        Json[]
-  education        Json?
-  profession       String?
-  ocupation        String?
-  talents          String[]
-  guarantor_name   String?
-  image            String?
-  gender           String?     @default("M")
-  user_id          String
-  user             User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  interned_at      DateTime    @db.Timestamp(6)
-  out_at           DateTime?   @db.Timestamp(6)
-  status           String      @default("Activo")
-  finished_program Boolean?    @default(false)
-  out_properties   Json?
-  Historial        Historial[]
+  id                String      @id @default(cuid())
+  created_at        DateTime    @default(now()) @db.Timestamp(6)
+  name              String
+  birthdate         DateTime
+  born_place        Json
+  isRural           Boolean
+  cedula            BigInt      @unique
+  phone             String?
+  references        Json[]
+  marital_status    String?
+  direction         Json?
+  adiccions         Json[]
+  education         Json?
+  profession        String?
+  ocupation         String?
+  talents           String[]
+  guarantor_name    String?
+  guarantor_phone   String?
+  guarantor_address Json?
+  guarantor_cedula  BigInt?
+  image             String?
+  career            String?
+  gender            String?     @default("M")
+  user_id           String
+  user              User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  interned_at       DateTime    @db.Timestamp(6)
+  out_at            DateTime?   @db.Timestamp(6)
+  status            String      @default("Activo")
+  finished_program  Boolean?    @default(false)
+  out_properties    Json?
+  Historial         Historial[]
 }
 
 model Historial {

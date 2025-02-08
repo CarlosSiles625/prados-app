@@ -50,6 +50,9 @@ export function AddInterForm() {
       profession: "",
       ocupation: "",
       guarantor_name: "",
+      guarantor_phone: "",
+      guarantor_cedula: "",
+      guarantor_street: "",
       references: "",
       street: "",
       zone: "",
@@ -58,6 +61,7 @@ export function AddInterForm() {
       primary: false,
       secondary: false,
       university: false,
+      career: "",
     },
     resolver: zodResolver(internSchema),
   });
@@ -84,9 +88,12 @@ export function AddInterForm() {
       name: data.name,
       phone: data.phone,
       marital_status: data.marital_status,
-      ocupation: data.ocupation,
-      profession: data.profession,
+      ocupation: data.ocupation ?? "Sin ocupación",
+      profession: data.profession ?? "Sin profesión",
       guarantor_name: data.guarantor_name,
+      guarantor_address: data.guarantor_street,
+      guarantor_phone: data.guarantor_phone,
+      guarantor_cedula: parseInt(data.guarantor_cedula, 10),
       cedula: parseInt(data.cedula, 10),
       isRural,
       birthdate: new Date(data.birthdate).toISOString(),
@@ -275,6 +282,10 @@ export function AddInterForm() {
                         <SelectItem value="Soltero/a">Soltero/a</SelectItem>
                         <SelectItem value="Casado/a">Casado/a</SelectItem>
                         <SelectItem value="Viudo/a">Viudo/a</SelectItem>
+                        <SelectItem value="Divorciado/a">
+                          Divorciado/a
+                        </SelectItem>
+                        <SelectItem value="Concubinato">Concubinato</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -388,6 +399,10 @@ export function AddInterForm() {
                       checked={field.value}
                       value={undefined}
                       className="h-4 w-4"
+                      onChange={() => {
+                        field.onChange(!field.value);
+                        form.setValue("primary", true);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -407,6 +422,11 @@ export function AddInterForm() {
                       checked={field.value}
                       value={undefined}
                       className="h-4 w-4"
+                      onChange={() => {
+                        field.onChange(!field.value);
+                        form.setValue("secondary", true);
+                        form.setValue("primary", true);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -418,6 +438,20 @@ export function AddInterForm() {
         <div className="grid grid-cols-4 gap-2">
           <FormField
             control={form.control}
+            name="career"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Carrera</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+                <FormDescription>Llenar si es universitario/a</FormDescription>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="profession"
             render={({ field }) => (
               <FormItem>
@@ -427,7 +461,7 @@ export function AddInterForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger disabled={form.getValues("career") !== ""}>
                       <SelectValue placeholder="Seleccione una opción" />
                     </SelectTrigger>
                     <SelectContent>
@@ -457,7 +491,12 @@ export function AddInterForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger
+                      disabled={
+                        form.getValues("profession") !== "Sin profesión" &&
+                        form.getValues("career") === ""
+                      }
+                    >
                       <SelectValue placeholder="Seleccione una opción" />
                     </SelectTrigger>
                     <SelectContent>
@@ -492,6 +531,8 @@ export function AddInterForm() {
               </FormItem>
             )}
           />
+        </div>
+        <div className="grid grid-cols-4 gap-2">
           <FormField
             control={form.control}
             name="guarantor_name"
@@ -505,8 +546,46 @@ export function AddInterForm() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="guarantor_cedula"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cédula del garante</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="guarantor_phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telefono del Garante</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="guarantor_street"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Dirección del garante</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-
         <div className="w-full grid place-content-center ">
           <AdicctionTable adicctions={adicctions} setAdictions={setAdictions} />
         </div>

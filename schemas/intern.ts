@@ -25,8 +25,12 @@ export const internSchema = z.object({
   talents: z.string(),
   ocupation: z.string(),
   guarantor_name: z.string(),
+  guarantor_phone: z.string(),
+  guarantor_street: z.string(),
+  guarantor_cedula: z.string(),
   primary: z.boolean(),
   secondary: z.boolean(),
   university: z.boolean(),
+  career: z.string(),
 });
 export type InternSchema = z.infer<typeof internSchema>;

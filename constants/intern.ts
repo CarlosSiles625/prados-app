@@ -55,6 +55,7 @@ export const DEPARTAMENTS = [
   { id: 7, name: "Chuquisaca" },
   { id: 8, name: "Beni" },
   { id: 9, name: "Pando" },
+  { id: 10, name: "Extranjero" },
 ];
 
 export const PROFESSIONS = [
@@ -136,10 +137,6 @@ export const OCCUPATIONS = [
   {
     id: 6,
     name: "Estudiante",
-  },
-  {
-    id: 7,
-    name: "Desempleado/a",
   },
   {
     id: 8,
