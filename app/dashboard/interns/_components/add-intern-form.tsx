@@ -106,6 +106,7 @@ export function AddInterForm() {
       education: education as any,
       gender: isM ? "M" : "F",
       adiccions: adicctions as any,
+      career: data.career,
       interned_at: data.interned_at
         ? new Date(data.interned_at).toISOString()
         : new Date().toISOString(),
