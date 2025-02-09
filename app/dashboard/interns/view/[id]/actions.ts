@@ -1,6 +1,6 @@
 "use server";
 
-import { deleteIntern, updateIntern } from "@/services/interns";
+import { deleteIntern, reinsertIntern, updateIntern } from "@/services/interns";
 import { createRecord } from "@/services/record";
 
 export async function dischargeIntern(formdata: FormData) {
@@ -57,4 +57,9 @@ export async function addRecord(formData: FormData) {
 export async function deleteInternAction(formData: FormData) {
   const id = formData.get("id") as string;
   return await deleteIntern(id);
+}
+
+export async function reinsertInternAction(formData: FormData) {
+  const id = formData.get("id") as string;
+  return await reinsertIntern(id);
 }

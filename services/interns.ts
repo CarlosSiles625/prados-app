@@ -155,3 +155,27 @@ export async function deleteIntern(id: string) {
     }
   }
 }
+
+export async function reinsertIntern(id: string) {
+  try {
+    const intern = await prisma.intern.update({
+      where: { id },
+      data: {
+        status: "Activo",
+        out_at: null,
+        out_properties: null as any,
+        interned_at: new Date().toISOString(),
+      },
+    });
+    if (!intern) throw new Error("No se pudo reinsertar el interno");
+    return { ok: true, message: "Interno reinsertado con éxito" };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return { ok: false, message: error.message };
+    } else {
+      console.log("An unexpected error occurred");
+      return { ok: false, message: "An unexpected error occurred" };
+    }
+  }
+}

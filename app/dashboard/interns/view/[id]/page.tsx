@@ -22,6 +22,7 @@ import { DeleteIntern } from "../../_components/delete-intern";
 import { PrintProfile } from "../../_components/print/profile";
 import { PrintRecord } from "../../_components/print/record";
 import { PrintOut } from "../../_components/print/out";
+import { ReinsertIntern } from "../../_components/reinsert-intern";
 
 export default async function Page({
   params,
@@ -216,6 +217,7 @@ export default async function Page({
       <div className="max-w-screen-lg mx-auto space-x-4">
         <PrintProfile intern={intern} />
         <PrintRecord intern={intern} records={records} />
+        {intern.status !== "Activo" && <ReinsertIntern id={id} />}
         {intern.status !== "Activo" && <PrintOut intern={intern} />}
       </div>
       <section>
