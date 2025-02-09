@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Table,
   TableBody,
@@ -18,9 +19,27 @@ export async function DuracionInternacion({
 }) {
   const stats = await getInternmentDurationStats(year, gender);
   if (stats.error) return <div>Error desconocido</div>;
+  const activeData = stats.data.filter((data) => data.status === "Activo");
+  const downData = stats.data.filter((data) => data.status === "Baja");
+  const upData = stats.data.filter((data) => data.status === "Alta");
   return (
-    <div className="w-full max-w-screen-md">
-      <h2 className="text-lg font-semibold">Duración de internación</h2>
+    <div className="w-full">
+      <h2 className="text-lg font-semibold text-center">
+        Duración de internación
+      </h2>
+      <div className="grid grid-cols-3 gap-4">
+        <DataTable data={activeData} tittle="Internos activos" />
+        <DataTable data={downData} tittle="Internos dados de baja" />
+        <DataTable data={upData} tittle="Internos dados de alta" />
+      </div>
+    </div>
+  );
+}
+
+const DataTable = ({ data, tittle }: { data: any[]; tittle: string }) => {
+  return (
+    <div>
+      <h2 className="text-lg font-semibold">{tittle}</h2>
       <Table className="border border-gray-300">
         <TableHeader>
           <TableRow>
@@ -33,7 +52,7 @@ export async function DuracionInternacion({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {stats.data.map((data) => (
+          {data.map((data) => (
             <TableRow key={data.intervalo}>
               <TableHead
                 scope="row"
@@ -50,11 +69,11 @@ export async function DuracionInternacion({
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center font-semibold">
-              TOTAL: {stats.total}
+              TOTAL: {data.reduce((acc, curr) => acc + curr.cantidad, 0)}
             </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
     </div>
   );
-}
+};

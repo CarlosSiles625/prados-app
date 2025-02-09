@@ -11,6 +11,7 @@ import { YearSelect } from "./_components/year-select";
 import { SelectGender } from "./_components/select-gender";
 import { Gender, Year } from "@/services/stats";
 import { PrintReport } from "./_components/print-report";
+import { Career } from "./_components/tables/career";
 
 export default async function Page({
   searchParams,
@@ -44,7 +45,7 @@ export default async function Page({
                 Género: {queryParams.gender ? queryParams.gender : "Ambos"}
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Profesiones
                 gender={queryParams.gender}
                 year={queryParams.year}
@@ -67,6 +68,7 @@ export default async function Page({
                 gender={queryParams.gender}
                 year={queryParams.year}
               />
+              <Career gender={queryParams.gender} year={queryParams.year} />
               <StatusInternacion
                 gender={queryParams.gender}
                 year={queryParams.year}
@@ -91,6 +93,7 @@ export default async function Page({
             gender={queryParams.gender}
             year={queryParams.year}
           />
+          <Career gender={queryParams.gender} year={queryParams.year} />
         </section>
         <section className="w-full flex justify-center items-center">
           <StatusInternacion

@@ -564,10 +564,11 @@ export async function getAgeDistribution(year: Year, gender: Gender) {
     const rawData: any[] = await prisma.$queryRaw`
       SELECT 
         CASE
-          WHEN age <= 14 THEN '0-14 años'
-          WHEN age BETWEEN 15 AND 29 THEN '15-29 años'
-          WHEN age BETWEEN 30 AND 44 THEN '30-44 años'
-          WHEN age BETWEEN 45 AND 59 THEN '45-59 años'
+          WHEN age BETWEEN 14 AND 19 THEN '14-19 años'
+          WHEN age BETWEEN 20 AND 29 THEN '20-29 años'
+          WHEN age BETWEEN 30 AND 39 THEN '30-39 años'
+          WHEN age BETWEEN 40 AND 49 THEN '40-49 años'
+          WHEN age BETWEEN 50 AND 59 THEN '50-59 años'
           ELSE '60+ años'
         END as intervalo,
         COUNT(*)::integer as cantidad
@@ -585,10 +586,11 @@ export async function getAgeDistribution(year: Year, gender: Gender) {
 
     // Mapear todos los intervalos
     const intervals = [
-      "0-14 años",
-      "15-29 años",
-      "30-44 años",
-      "45-59 años",
+      "14-19 años",
+      "20-29 años",
+      "30-39 años",
+      "40-49 años",
+      "50-59 años",
       "60+ años",
     ];
 
@@ -728,17 +730,96 @@ export async function getAdmissionStatusStats(
     };
   }
 }
+// export interface DurationStat {
+//   intervalo: string;
+//   cantidad: number;
+// }
+// export async function getInternmentDurationStats(year: Year, gender: Gender) {
+//   try {
+//     // Normalizar parámetros
+//     const normalizedYear = year === "all" || !year ? null : Number(year);
+//     const normalizedGender = gender === "A" || !gender ? null : gender;
+
+//     // Construir condiciones
+//     const yearCondition = normalizedYear
+//       ? Prisma.sql`EXTRACT(YEAR FROM "interned_at") = ${normalizedYear}`
+//       : Prisma.sql`1=1`;
+
+//     const genderCondition = normalizedGender
+//       ? Prisma.sql`"gender" = ${normalizedGender}`
+//       : Prisma.sql`1=1`;
+
+//     // Consulta SQL para calcular duración
+//     const rawData: any[] = await prisma.$queryRaw`
+//       SELECT
+//         CASE
+//           WHEN months <= 3 THEN '0-3 meses'
+//           WHEN months BETWEEN 4 AND 8 THEN '4-8 meses'
+//           WHEN months BETWEEN 9 AND 12 THEN '8-12 meses'
+//           WHEN months BETWEEN 13 AND 24 THEN '1-2 años'
+//           WHEN months BETWEEN 25 AND 48 THEN '2-4 años'
+//           ELSE '5+ años'
+//         END as intervalo,
+//         COUNT(*)::integer as cantidad
+//       FROM (
+//         SELECT
+//           EXTRACT(YEAR FROM AGE(COALESCE(out_at, NOW()), interned_at)) * 12 +
+//           EXTRACT(MONTH FROM AGE(COALESCE(out_at, NOW()), interned_at)) as months
+//         FROM "Intern"
+//         WHERE
+//           ${yearCondition}
+//           AND ${genderCondition}
+//       ) as duraciones
+//       GROUP BY intervalo
+//       ORDER BY MIN(months)
+//     `;
+
+//     // Mapear todos los intervalos
+//     const intervalos = [
+//       "0-3 meses",
+//       "4-8 meses",
+//       "8-12 meses",
+//       "1-2 años",
+//       "2-4 años",
+//       "5+ años",
+//     ];
+
+//     const result = intervalos.map((intervalo) => ({
+//       intervalo,
+//       cantidad: Number(
+//         rawData.find((d) => d.intervalo === intervalo)?.cantidad || 0
+//       ),
+//     }));
+
+//     // Calcular total según la suma de las categorías
+//     const total = result.reduce((sum, item) => sum + item.cantidad, 0);
+
+//     return {
+//       data: result,
+//       total,
+//       error: null,
+//     };
+//   } catch (error) {
+//     console.error("Error en getInternmentDurationStats:", error);
+//     return {
+//       data: [],
+//       total: 0,
+//       error: "Error al obtener estadísticas de duración",
+//     };
+//   }
+// }
+
 export interface DurationStat {
   intervalo: string;
   cantidad: number;
+  status: string;
 }
+
 export async function getInternmentDurationStats(year: Year, gender: Gender) {
   try {
-    // Normalizar parámetros
     const normalizedYear = year === "all" || !year ? null : Number(year);
     const normalizedGender = gender === "A" || !gender ? null : gender;
 
-    // Construir condiciones
     const yearCondition = normalizedYear
       ? Prisma.sql`EXTRACT(YEAR FROM "interned_at") = ${normalizedYear}`
       : Prisma.sql`1=1`;
@@ -747,49 +828,56 @@ export async function getInternmentDurationStats(year: Year, gender: Gender) {
       ? Prisma.sql`"gender" = ${normalizedGender}`
       : Prisma.sql`1=1`;
 
-    // Consulta SQL para calcular duración
     const rawData: any[] = await prisma.$queryRaw`
       SELECT 
         CASE
-          WHEN months <= 3 THEN '0-3 meses'
-          WHEN months BETWEEN 4 AND 8 THEN '4-8 meses'
-          WHEN months BETWEEN 9 AND 12 THEN '8-12 meses'
-          WHEN months BETWEEN 13 AND 24 THEN '1-2 años'
-          WHEN months BETWEEN 25 AND 48 THEN '2-4 años'
-          ELSE '5+ años'
+          WHEN months <= 1 THEN '0-1 mes'
+          WHEN months BETWEEN 2 AND 3 THEN '1-3 meses'
+          WHEN months BETWEEN 4 AND 6 THEN '3-6 meses'
+          WHEN months BETWEEN 7 AND 12 THEN '6-12 meses'
+          WHEN months BETWEEN 13 AND 18 THEN '1-1.5 años'
+          WHEN months BETWEEN 19 AND 24 THEN '1.5-2 años'
+          ELSE '2+ años'
         END as intervalo,
+        status,
         COUNT(*)::integer as cantidad
       FROM (
         SELECT 
           EXTRACT(YEAR FROM AGE(COALESCE(out_at, NOW()), interned_at)) * 12 +
-          EXTRACT(MONTH FROM AGE(COALESCE(out_at, NOW()), interned_at)) as months
+          EXTRACT(MONTH FROM AGE(COALESCE(out_at, NOW()), interned_at)) as months,
+          status
         FROM "Intern"
         WHERE 
           ${yearCondition}
           AND ${genderCondition}
       ) as duraciones
-      GROUP BY intervalo
+      GROUP BY intervalo, status
       ORDER BY MIN(months)
     `;
 
-    // Mapear todos los intervalos
     const intervalos = [
-      "0-3 meses",
-      "4-8 meses",
-      "8-12 meses",
-      "1-2 años",
-      "2-4 años",
-      "5+ años",
+      "0-1 mes",
+      "1-3 meses",
+      "3-6 meses",
+      "6-12 meses",
+      "1-1.5 años",
+      "1.5-2 años",
+      "2+ años",
     ];
 
-    const result = intervalos.map((intervalo) => ({
-      intervalo,
-      cantidad: Number(
-        rawData.find((d) => d.intervalo === intervalo)?.cantidad || 0
-      ),
-    }));
+    const statuses = ["Activo", "Baja", "Alta"];
 
-    // Calcular total según la suma de las categorías
+    const result = intervalos.flatMap((intervalo) =>
+      statuses.map((status) => ({
+        intervalo,
+        status,
+        cantidad: Number(
+          rawData.find((d) => d.intervalo === intervalo && d.status === status)
+            ?.cantidad || 0
+        ),
+      }))
+    );
+
     const total = result.reduce((sum, item) => sum + item.cantidad, 0);
 
     return {
@@ -803,6 +891,71 @@ export async function getInternmentDurationStats(year: Year, gender: Gender) {
       data: [],
       total: 0,
       error: "Error al obtener estadísticas de duración",
+    };
+  }
+}
+
+export interface CareerStat {
+  carrera: string;
+  cantidad: number;
+}
+
+export async function getInternsByCareerStats(year: Year, gender: Gender) {
+  try {
+    const normalizedYear = year === "all" || !year ? null : Number(year);
+    const normalizedGender = gender === "A" || !gender ? null : gender;
+
+    const yearCondition = normalizedYear
+      ? Prisma.sql`EXTRACT(YEAR FROM "interned_at") = ${normalizedYear}`
+      : Prisma.sql`1=1`;
+
+    const genderCondition = normalizedGender
+      ? Prisma.sql`"gender" = ${normalizedGender}`
+      : Prisma.sql`1=1`;
+
+    const rawData: any[] = await prisma.$queryRaw`
+      WITH filtered_interns AS (
+        SELECT career
+        FROM "Intern"
+        WHERE ${yearCondition} AND ${genderCondition}
+      ),
+      top_careers AS (
+        SELECT career
+        FROM filtered_interns
+        WHERE career IS NOT NULL AND career <> ''
+        GROUP BY career
+        ORDER BY COUNT(*) DESC
+        LIMIT 5
+      )
+      SELECT 
+        COALESCE(
+          NULLIF(tc.career, ''),
+          'Sin carrera'
+        ) as carrera,
+        COUNT(i.*)::integer as cantidad
+      FROM filtered_interns i
+      LEFT JOIN top_careers tc ON i.career = tc.career
+      GROUP BY tc.career
+      ORDER BY cantidad DESC
+    `;
+
+    // Aseguramos que 'Sin carrera' siempre esté presente
+    const result: CareerStat[] = rawData;
+    if (!result.some((r) => r.carrera === "Sin carrera")) {
+      result.push({ carrera: "Sin carrera", cantidad: 0 });
+    }
+
+    return {
+      data: result,
+      total: result.reduce((sum, item) => sum + item.cantidad, 0),
+      error: null,
+    };
+  } catch (error) {
+    console.error("Error en getInternsByCareerStats:", error);
+    return {
+      data: [],
+      total: 0,
+      error: "Error al obtener estadísticas por carrera",
     };
   }
 }
