@@ -9,7 +9,6 @@ import { useReactToPrint } from "react-to-print";
 
 export function PrintOut({ intern }: { intern: any }) {
   const contentRef = useRef<HTMLDivElement>(null);
-  console.log(intern);
   const reactToPrintFn = useReactToPrint({
     contentRef,
     pageStyle: `
