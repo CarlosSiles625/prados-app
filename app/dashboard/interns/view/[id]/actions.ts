@@ -35,8 +35,12 @@ export async function addRecord(formData: FormData) {
   const userId = formData.get("userId") as string;
   const internId = formData.get("internId") as string;
   const notes = formData.get("notes") as string;
+  const date = formData.get("date") as string | undefined;
   return await createRecord({
     notes,
+    created_at: date
+      ? new Date(`${date}T00:00:00.000Z`).toISOString()
+      : new Date().toISOString(),
     user: {
       connect: {
         id: userId,

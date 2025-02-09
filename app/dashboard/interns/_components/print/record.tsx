@@ -36,7 +36,7 @@ export function PrintRecord({
   return (
     <>
       <Button onClick={() => reactToPrintFn()} variant={"secondary"}>
-        Imprimir Historial
+        Imprimir prontuario
       </Button>
       <div className="space-y-4 print:block hidden" ref={contentRef}>
         <div className="flex justify-center gap-x-4">

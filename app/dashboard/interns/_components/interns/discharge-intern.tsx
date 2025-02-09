@@ -39,7 +39,7 @@ export function DischargeIntern({ id }: { id: string }) {
           className="bg-green-700 hover:bg-green-800"
           type="button"
         >
-          Dar de Alta
+          Terminar
         </Button>
       </DialogTrigger>
 

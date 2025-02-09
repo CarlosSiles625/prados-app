@@ -17,6 +17,7 @@ import { useState } from "react";
 import { addRecord } from "../../../view/[id]/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
 
 export function AddRecord({ id }: { id: string }) {
   const session = useSession();
@@ -66,6 +67,8 @@ export function AddRecord({ id }: { id: string }) {
 
           <Label htmlFor="notes">Concepto</Label>
           <Textarea id="notes" name="notes" className="col-span-3" />
+          <Label htmlFor="date">Fecha</Label>
+          <Input id="date" type="date" name="date" className="col-span-3" />
         </form>
         <DialogFooter>
           <Button type="submit" form="add-record">

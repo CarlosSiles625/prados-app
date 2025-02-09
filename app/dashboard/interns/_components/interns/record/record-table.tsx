@@ -11,8 +11,7 @@ type Props = {
   id: string;
 };
 
-export function RecordsTable({ records, count, id }: Props) {
-  console.log(count);
+export function RecordsTable({ records, id }: Props) {
   return (
     <div className="max-w-screen-lg mx-auto space-y-1">
       <AddRecord id={id} />

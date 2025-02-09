@@ -21,6 +21,7 @@ import { Historial } from "@/types/record";
 import { DeleteIntern } from "../../_components/delete-intern";
 import { PrintProfile } from "../../_components/print/profile";
 import { PrintRecord } from "../../_components/print/record";
+import { PrintOut } from "../../_components/print/out";
 
 export default async function Page({
   params,
@@ -94,6 +95,10 @@ export default async function Page({
               {education.university && ", Universitaria u Otros"}
             </p>
             <p>
+              <span className="font-bold">Carrera: </span>
+              {intern?.career}
+            </p>
+            <p>
               <span className="font-bold">Profesión: </span>
               {intern.profession}
             </p>
@@ -118,9 +123,30 @@ export default async function Page({
             <span className="font-bold">Fecha de Internación </span>
             {format(intern.interned_at, "medium", "es")}
           </p>
+          <div>
+            <p className="font-semibold underline text-lg">Garante</p>
+            <div className="flex gap-2 flex-wrap max-w-screen-md">
+              <p>
+                <span className="font-bold">Nombre: </span>
+                {intern.guarantor_name}
+              </p>
+              <p>
+                <span className="font-bold">Teléfono: </span>
+                {intern.guarantor_phone}
+              </p>
+              <p>
+                <span className="font-bold">Dirección: </span>
+                {intern.guarantor_address}
+              </p>
+              <p>
+                <span className="font-bold">Cédula: </span>
+                {intern.guarantor_cedula}
+              </p>
+            </div>
+          </div>
           <div className="flex gap-4 items-center">
             <div className="mt-1 mb-1">
-              <p className="font-semibold underline">Referencias</p>
+              <p className="font-semibold underline text-lg">Referencias</p>
               <ul>
                 {references.map((ref, index) => (
                   <li key={index} className="text-md">
@@ -131,7 +157,7 @@ export default async function Page({
               </ul>
             </div>
             <div>
-              <p className="font-semibold underline">Adicciones</p>
+              <p className="font-semibold underline text-lg">Adicciones</p>
               <ul>
                 {adiccions.map((adiccion, index) => (
                   <li key={index} className="text-md">
@@ -190,6 +216,7 @@ export default async function Page({
       <div className="max-w-screen-lg mx-auto space-x-4">
         <PrintProfile intern={intern} />
         <PrintRecord intern={intern} records={records} />
+        {intern.status !== "Activo" && <PrintOut intern={intern} />}
       </div>
       <section>
         <h2 className="text-center font-semibold text-xl underline">

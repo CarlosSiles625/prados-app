@@ -37,6 +37,12 @@ export const columns: ColumnDef<InternsType & { acction: string }>[] = [
   {
     accessorKey: "status",
     header: "Estatus",
+    cell: ({ row }) =>
+      row.original.status === "Activo"
+        ? "Activo"
+        : row.original.status === "Baja"
+        ? "Abandono"
+        : "Finalizado",
   },
   {
     accessorKey: "acction",

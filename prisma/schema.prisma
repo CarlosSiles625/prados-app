@@ -47,7 +47,7 @@ model Intern {
   talents           String[]
   guarantor_name    String?
   guarantor_phone   String?
-  guarantor_address Json?
+  guarantor_address String?
   guarantor_cedula  BigInt?
   image             String?
   career            String?

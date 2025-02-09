@@ -46,7 +46,7 @@ export function DownIntern({ id }: { id: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="destructive" type="button">
-          Dar de Baja
+          Abandonar
         </Button>
       </DialogTrigger>
 
