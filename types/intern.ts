@@ -43,3 +43,56 @@ export type InternsType = {
   };
   status: "Activo" | "Alta" | "Baja";
 };
+
+export interface InternForExport {
+  id?: string;
+  created_at?: string;
+  name: string;
+  birthdate: string;
+  born_place: {
+    ciudad: string;
+    departamento: string;
+  };
+  isRural: boolean;
+  cedula: string;
+  phone: string;
+  references: Array<{
+    name: string;
+    phone: string;
+    relationship: string;
+  }>;
+  marital_status: string;
+  direction: {
+    city: string;
+    zone: string;
+    street: string;
+  };
+  adiccions: Array<{
+    name: string;
+    consumption_time: string;
+  }>;
+  education: {
+    primary: boolean;
+    secondary: boolean;
+    university: boolean;
+  };
+  profession: string;
+  ocupation: string;
+  talents: string[];
+  guarantor_name: string | null;
+  guarantor_phone: string | null;
+  guarantor_address: string | null;
+  guarantor_cedula: string | null;
+  career: string | null;
+  gender: string;
+  interned_at: string;
+  out_at: string | null;
+  status: string;
+  finished_program: boolean;
+  out_properties: string | null;
+  user?: {
+    connect: {
+      id: string;
+    };
+  };
+}
