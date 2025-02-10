@@ -11,13 +11,11 @@ export function ExportBtn() {
   const handleExport = async () => {
     try {
       setLoading(true);
-
       // 1. Obtener datos del endpoint
       const { interns: data, error, ok } = await exportInterns();
       if (!ok || error) {
         throw new Error("Error en la exportación");
       }
-
       exportInternsToExcel(data, `internos-${new Date().toISOString()}`);
     } catch (error) {
       console.log("Error en la exportación:", error);
