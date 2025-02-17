@@ -35,6 +35,7 @@ export function PrintOut({ intern }: { intern: any }) {
           <h1 className="text-center font-semibold text-xl">
             PARA USO DEL CENTRO
           </h1>
+          <p>NOMBRE DEL INTERNO/A: {intern.name}</p>
           <p>INTERNADO POR: {intern.user.name}</p>
           <p>¿TERMINÓ EL PROGRAMA?: {intern.finished_program ? "SI" : "NO"}</p>
           <p>

@@ -52,7 +52,7 @@ catch {
 # Probar conexión con Prisma
 Write-Host "Probando conexión con Prisma..."
 try {
-    npx prisma migrate deploy
+    npx prisma migrate deploy --schema ../prisma/schema.prisma
     Write-Host "Migración realizada correctamente."
 }
 catch {
