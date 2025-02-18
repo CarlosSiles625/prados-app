@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       { status: 404 }
     );
   if (data.intern.image) {
-    const uploadDir = path.join(process.cwd(), "public/interns");
+    const uploadDir = path.join(process.cwd(), "public");
     const filePath = path.join(uploadDir, data.intern.image);
     try {
       await fs.unlink(filePath);

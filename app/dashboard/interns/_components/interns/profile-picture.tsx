@@ -4,7 +4,7 @@ export function Profile({ image }: { image: string | null }) {
   if (!image) return <p>Sin Imagen</p>;
   return (
     <Image
-      src={`/interns/${image}`}
+      src={`/${image}`}
       alt="Inter Profile Image"
       width={150}
       height={150}
