@@ -18,21 +18,29 @@ export async function POST(req: Request) {
       { error: "No se encontró el interno." },
       { status: 404 }
     );
+
   if (data.intern.image) {
     const uploadDir = path.join(process.cwd(), "public");
     const filePath = path.join(uploadDir, data.intern.image);
     try {
       await fs.unlink(filePath);
     } catch (error) {
-      console.error(error);
-      return Response.json(
-        {
-          error: "Ocurrió un error inesperado al eliminar la imagen anterior.",
-        },
-        { status: 500 }
-      );
+      // Solo manejamos el error si NO es de "archivo no encontrado"
+      if (error.code !== "ENOENT") {
+        console.error(error);
+        return Response.json(
+          {
+            error:
+              "Ocurrió un error inesperado al eliminar la imagen anterior.",
+          },
+          { status: 500 }
+        );
+      }
+      // Si el error es ENOENT (archivo no existe), continuamos normalmente
+      console.log("La imagen anterior no existía, continuando...");
     }
   }
+
   const buffer = Buffer.from(await file.arrayBuffer());
   const uploadDir = path.join(process.cwd(), "public/interns");
 
