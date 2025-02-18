@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from "node:path";
 import { promises as fs } from "fs";
 import { getInternById, updateIntern } from "@/services/interns";
