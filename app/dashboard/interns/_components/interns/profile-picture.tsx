@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 
 export function Profile({ image }: { image: string | null }) {
   if (!image) return <p>Sin Imagen</p>;
   return (
-    <img
+    <Image
       src={`/interns/${image}`}
       alt="Inter Profile Image"
       width={150}

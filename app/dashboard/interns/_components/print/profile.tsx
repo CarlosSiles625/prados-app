@@ -13,6 +13,7 @@ import { format } from "@formkit/tempo";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import Image from "next/image";
 
 export function PrintProfile({ intern }: { intern: any }) {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export function PrintProfile({ intern }: { intern: any }) {
                 {intern.marital_status}
               </p>
             </section>
-            <img
+            <Image
               src={`/interns/${image}`}
               alt="Foto del Interno"
               width={120}
