@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       await fs.unlink(filePath);
     } catch (error) {
       // Solo manejamos el error si NO es de "archivo no encontrado"
-      if (error.code !== "ENOENT") {
+      if ((error as any).code !== "ENOENT") {
         console.error(error);
         return Response.json(
           {
