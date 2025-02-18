@@ -87,7 +87,7 @@ export function PrintProfile({ intern }: { intern: any }) {
               </p>
             </section>
             <Image
-              src={`/${image}`}
+              src={`${process.env.SITE_URL}/api/image?filename=${image}`}
               alt="Foto del Interno"
               width={120}
               height={100}
