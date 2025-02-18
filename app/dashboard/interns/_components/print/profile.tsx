@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { calculateAge } from "@/lib/utils";
@@ -12,7 +13,7 @@ import { format } from "@formkit/tempo";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import Image from "next/image";
+import { SITE_URL } from "@/constants/site";
 
 export function PrintProfile({ intern }: { intern: any }) {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -86,8 +87,8 @@ export function PrintProfile({ intern }: { intern: any }) {
                 {intern.marital_status}
               </p>
             </section>
-            <Image
-              src={`${process.env.SITE_URL}/api/image?filename=${image}`}
+            <img
+              src={`${SITE_URL}/api/image?filename=${image}`}
               alt="Foto del Interno"
               width={120}
               height={100}
