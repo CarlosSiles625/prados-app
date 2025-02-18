@@ -42,7 +42,7 @@ export async function POST(req: Request) {
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const uploadDir = path.join(process.cwd(), "public/interns");
+  const uploadDir = path.join(process.cwd(), "public");
 
   try {
     await fs.mkdir(uploadDir, { recursive: true });
