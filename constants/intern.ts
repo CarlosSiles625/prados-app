@@ -175,11 +175,16 @@ export const OCCUPATIONS = [
     name: "Tareas domésticas",
   },
   {
+    id: 19,
+    name: "Soldador/a",
+  },
+  {
     id: 18,
     name: "Sin ocupación",
   },
+
   {
-    id: 19,
+    id: 20,
     name: "Otros",
   },
 ];

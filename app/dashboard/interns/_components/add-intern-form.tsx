@@ -462,7 +462,7 @@ export function AddInterForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <SelectTrigger disabled={form.getValues("career") !== ""}>
+                    <SelectTrigger disabled={form.watch("career") !== ""}>
                       <SelectValue placeholder="Seleccione una opción" />
                     </SelectTrigger>
                     <SelectContent>
@@ -493,10 +493,7 @@ export function AddInterForm() {
                     defaultValue={field.value}
                   >
                     <SelectTrigger
-                      disabled={
-                        form.getValues("profession") !== "Sin profesión" &&
-                        form.getValues("career") === ""
-                      }
+                      disabled={form.watch("profession") !== "Sin profesión"}
                     >
                       <SelectValue placeholder="Seleccione una opción" />
                     </SelectTrigger>
