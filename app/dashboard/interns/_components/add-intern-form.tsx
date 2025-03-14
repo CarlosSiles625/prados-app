@@ -128,6 +128,7 @@ export function AddInterForm() {
     }
     toast.success(Json.message);
     form.reset();
+    setAdictions([]);
   };
   return (
     <Form {...form}>
@@ -493,7 +494,10 @@ export function AddInterForm() {
                     defaultValue={field.value}
                   >
                     <SelectTrigger
-                      disabled={form.watch("profession") !== "Sin profesión"}
+                      disabled={
+                        form.watch("profession") !== "Sin profesión" &&
+                        form.watch("profession") !== ""
+                      }
                     >
                       <SelectValue placeholder="Seleccione una opción" />
                     </SelectTrigger>
