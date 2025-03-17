@@ -6,10 +6,14 @@ import { createRecord } from "@/services/record";
 export async function dischargeIntern(formdata: FormData) {
   const id = formdata.get("id") as string;
   const outAt = formdata.get("out_at") as string | undefined;
+  const observations = formdata.get("observations");
   return await updateIntern(id, {
     status: "Alta",
     out_at: outAt ? new Date(outAt).toISOString() : new Date().toISOString(),
     finished_program: true,
+    out_properties: {
+      observations: observations as string,
+    },
   });
 }
 

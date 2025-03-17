@@ -1,5 +1,5 @@
 import { getInternById } from "@/services/interns";
-import { EditForm } from "../../_components/interns/edit/edit-form";
+import { EditInternForm } from "../../_components/interns/edit/edit-form";
 
 export default async function Page({
   params,
@@ -13,11 +13,11 @@ export default async function Page({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 grid place-items-center">
       <h1 className="text-center font-semibold text-xl">
         Editar Datos del interno
       </h1>
-      <EditForm intern={intern} />
+      <EditInternForm intern={intern} />
     </div>
   );
 }

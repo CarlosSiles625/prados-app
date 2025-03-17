@@ -16,6 +16,7 @@ import { useReactToPrint } from "react-to-print";
 import { SITE_URL } from "@/constants/site";
 import { Text } from "@/types/text";
 import { RenderHtml } from "@/components/render-html";
+import { PrintOut } from "./out";
 
 export function PrintProfile({
   intern,
@@ -90,6 +91,7 @@ export function PrintProfile({
     .replace("%TEL_GARANTE%", intern.guarantor_phone)
     .replace("%DIR_GARANTE%", intern.guarantor_address)
     .replace("%CIUDAD_GARANTE%", intern.direction.city);
+  const status = intern.status as "Activo" | "Alta" | "Baja";
   return (
     <>
       <Button onClick={() => reactToPrintFn()}>Imprimir Solicitud</Button>
@@ -235,7 +237,6 @@ export function PrintProfile({
               </div>
             </div>
           </div>
-          <br />
           <div>
             <RenderHtml htmlString={compromiso} />
             <div className="w-full flex justify-end">
@@ -245,14 +246,12 @@ export function PrintProfile({
               </div>
             </div>
           </div>
+          {status !== "Activo" && (
+            <div>
+              <PrintOut intern={intern} />
+            </div>
+          )}
           <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <RenderHtml htmlString={compromiso_int} />
             <br />
             <div className="w-full flex justify-center gap-10">

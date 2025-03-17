@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export function DischargeIntern({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
@@ -55,6 +56,10 @@ export function DischargeIntern({ id }: { id: string }) {
             <input type="hidden" name="id" value={id} />
             <Label htmlFor="out_at">Fecha:</Label>
             <Input type="date" id="out_at" name="out_at" className="max-w-xs" />
+            <Label>
+              Observaciones
+              <Textarea name="observations" />
+            </Label>
 
             <Button type="submit">Aceptar</Button>
           </form>
