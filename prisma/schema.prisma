@@ -71,3 +71,10 @@ model Historial {
   user_id    String
   user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
+
+model Textos {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  name       String
+  textHtml   String
+}

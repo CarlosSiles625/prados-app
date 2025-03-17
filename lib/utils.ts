@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InternForExport } from "@/types/intern";
+import { Text, TextType } from "@/types/text";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import * as XLSX from "xlsx";
@@ -288,4 +289,16 @@ export function generateExampleExcel(): void {
 
   // Exportamos el archivo Excel
   XLSX.writeFile(workbook, "formato_ejemplo.xlsx");
+}
+
+export function getText(texts: Text[], type: TextType): string {
+  return texts?.find((text) => text.name === type)?.textHtml || "";
+}
+
+export function replaceText(text: string, texts: string[]): string {
+  let newText = text;
+  texts.forEach((t, index) => {
+    newText = newText.replace(`{${index}}`, t);
+  });
+  return newText;
 }

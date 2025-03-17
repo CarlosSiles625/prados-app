@@ -47,7 +47,7 @@ export function PrintRecord({
             </p>
           </div>
           <img
-            src={`/interns/${image}`}
+            src={`/${image}`}
             alt="Inter Profile Image"
             width={80}
             height={80}

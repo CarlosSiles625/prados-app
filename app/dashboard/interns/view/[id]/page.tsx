@@ -23,6 +23,7 @@ import { PrintProfile } from "../../_components/print/profile";
 import { PrintRecord } from "../../_components/print/record";
 import { PrintOut } from "../../_components/print/out";
 import { ReinsertIntern } from "../../_components/reinsert-intern";
+import { getTexts } from "@/services/text";
 
 export default async function Page({
   params,
@@ -32,8 +33,9 @@ export default async function Page({
   const { id } = await params;
   const { error, intern } = await getInternById(id);
   const { count, error: errorRecord, records } = await getRecordByInternId(id);
-  if (error || errorRecord) {
-    return <div>Error: {error ?? errorRecord}</div>;
+  const { texts, error: tError } = await getTexts();
+  if (error || errorRecord || tError) {
+    return <div>Error: {error ?? errorRecord ?? tError}</div>;
   }
   if (!intern) {
     return <div>Intern not found</div>;
@@ -215,7 +217,7 @@ export default async function Page({
         </div>
       )}
       <div className="max-w-screen-lg mx-auto space-x-4">
-        <PrintProfile intern={intern} />
+        <PrintProfile intern={intern} texts={texts ?? []} />
         <PrintRecord intern={intern} records={records} />
         {intern.status !== "Activo" && <ReinsertIntern id={id} />}
         {intern.status !== "Activo" && <PrintOut intern={intern} />}
