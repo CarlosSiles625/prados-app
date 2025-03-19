@@ -1,6 +1,12 @@
 "use client";
 import DOMPurify from "dompurify";
-export function RenderHtml({ htmlString }: { htmlString: string }) {
+export function RenderHtml({
+  htmlString,
+  className,
+}: {
+  htmlString: string;
+  className?: string;
+}) {
   const cleanHtml = DOMPurify.sanitize(htmlString, {
     USE_PROFILES: { html: true },
     ALLOWED_TAGS: [
@@ -28,5 +34,10 @@ export function RenderHtml({ htmlString }: { htmlString: string }) {
     ALLOWED_ATTR: ["href", "src", "alt", "title", "class"],
   });
 
-  return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{ __html: cleanHtml }}
+      className={className}
+    />
+  );
 }

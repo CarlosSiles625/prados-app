@@ -228,7 +228,7 @@ export function PrintProfile({
           <div>
             <RenderHtml htmlString={filosofia ?? ""} />
           </div>
-          <div>
+          <div style={{ pageBreakBefore: "always" }}>
             <RenderHtml htmlString={sostentimiento} />
             <div className="w-full flex justify-end">
               <div>
@@ -251,7 +251,7 @@ export function PrintProfile({
               <PrintOut intern={intern} />
             </div>
           )}
-          <div>
+          <div style={{ pageBreakBefore: "always" }}>
             <RenderHtml htmlString={compromiso_int} />
             <br />
             <div className="w-full flex justify-center gap-10">

@@ -1,4 +1,13 @@
-import { Calendar, Inbox, Search, UserPlus } from "lucide-react";
+import {
+  Calendar,
+  Inbox,
+  Puzzle,
+  Search,
+  ShieldX,
+  Telescope,
+  UserPlus,
+  Wallet,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -36,6 +45,26 @@ const items = [
     title: "Estadísticas",
     url: "/dashboard/stats",
     icon: Search,
+  },
+  {
+    title: "Filosofía",
+    url: "/dashboard/filosofia",
+    icon: Telescope,
+  },
+  {
+    title: "Sostenimiento",
+    url: "/dashboard/sostenimiento",
+    icon: Wallet,
+  },
+  {
+    title: "Compromiso",
+    url: "/dashboard/compromiso",
+    icon: Puzzle,
+  },
+  {
+    title: "Compromiso de internación",
+    url: "/dashboard/compromiso-internacion",
+    icon: ShieldX,
   },
 ];
 
